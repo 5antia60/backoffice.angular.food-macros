@@ -106,8 +106,10 @@ export class SnackComponent implements OnInit {
     this.inputRef.nativeElement.value = '';
   }
 
-  public removeFood(name: string): void {
-    console.log('remove', name);
+  public removeFood(foodId: string): void {
+    const indexToRemove = this.foodsList.findIndex(food => food.food.id === foodId);
+
+    this.foodsList.splice(indexToRemove, 1);
   }
 
   public onSubmit(): void {
