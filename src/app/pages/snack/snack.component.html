@@ -1,0 +1,57 @@
+<div class="col-md-12 px-0">
+  <div>
+    <nb-card accent="info">
+      <nb-card-header>Monte sua refeição!</nb-card-header>
+      <nb-card-body>
+        Selecione os alimentos e respectivas quantidades para gerar sua refeição
+      </nb-card-body>
+
+      <div class="d-flex select-food-area">
+        <div class="select-food-area__search">
+          <input #autoInput
+                 class="w-100"
+                 nbInput
+                 type="text"
+                 (input)="onChange()"
+                 placeholder="Pesquise pelo alimento"
+                 [nbAutocomplete]="auto" />
+
+          <nb-autocomplete #auto (selectedChange)="onSelectionChange($event)">
+            <nb-option *ngFor="let option of filteredFoods$ | async" [value]="option">
+              {{ option.name }}
+            </nb-option>
+          </nb-autocomplete>
+        </div>
+
+        <input nbInput
+               [disabled]="!selectedFood"
+               type="number"
+               [(ngModel)]="selectedGrams"
+               placeholder="Quantidade (gramas)" />
+
+        <button [disabled]="!selectedGrams || !selectedFood"
+                nbButton
+                status="success"
+                (click)="addFood()"
+                outline>Adicionar alimento
+        </button>
+      </div>
+    </nb-card>
+  </div>
+
+
+  <nb-card [nbSpinner]="false">
+    <nb-card-header>
+      Alimentos para a refeição
+    </nb-card-header>
+    <nb-card-body>
+      <strong *ngIf="!foodsList.length">Selecione pelo menos um alimento</strong>
+
+      <nb-list>
+        <nb-list-item *ngFor="let food of foodsList">
+          <p>{{ food.food.name }} - {{ food.grams }}g</p>
+        </nb-list-item>
+      </nb-list>
+    </nb-card-body>
+  </nb-card>
+</div>
