@@ -12,7 +12,7 @@ import {
   NbSpinnerModule,
   NbTooltipModule,
 } from '@nebular/theme';
-import { ListItemsComponent } from './list-items.component';
+import { ListFoodsComponent } from './list-foods.component';
 
 @NgModule({
   imports: [
@@ -29,10 +29,10 @@ import { ListItemsComponent } from './list-items.component';
     MatPaginatorModule,
   ],
   exports: [
-    ListItemsComponent,
+    ListFoodsComponent,
   ],
   declarations: [
-    ListItemsComponent,
+    ListFoodsComponent,
   ],
 })
-export class ListItemsModule {}
+export class ListFoodsModule {}

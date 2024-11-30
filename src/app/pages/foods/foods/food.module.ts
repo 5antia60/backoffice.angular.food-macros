@@ -9,8 +9,8 @@ import {
   NbSpinnerModule,
   NbTooltipModule
 } from '@nebular/theme';
-import { CreateItemComponent } from './create-item.component';
-import { UpdateItemComponent } from './update-item.component';
+import { CreateFoodComponent } from './create-food.component';
+import { UpdateFoodComponent } from './update-food.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -26,12 +26,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     NbInputModule,
   ],
   exports: [
-    CreateItemComponent,
-    UpdateItemComponent,
+    CreateFoodComponent,
+    UpdateFoodComponent,
   ],
   declarations: [
-    CreateItemComponent,
-    UpdateItemComponent,
+    CreateFoodComponent,
+    UpdateFoodComponent,
   ],
 })
-export class ItemModule {}
+export class FoodModule {}

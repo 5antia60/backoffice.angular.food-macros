@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
 //#endregion
 
 @Component({
-  selector: 'ngx-items',
+  selector: 'ngx-foods',
   template: `
     <router-outlet></router-outlet>
   `,
 })
-export class ItemsComponent {}
+export class FoodsComponent {}

@@ -1,0 +1,61 @@
+<div class="col-md-12 px-0">
+  <nb-card [nbSpinner]="showLoading">
+    <nb-card-header>
+      {{ isUpdate ? 'Detalhes do' : 'Criar novo' }} alimento
+    </nb-card-header>
+    <nb-card-body>
+      <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+        <div class="w-100 d-flex flex-wrap">
+
+          <div class="col-12 col-md-4 mt-3">
+            <label for="name" class="required-symbol">Nome *</label>
+            <input id="name" autocomplete="off" maxlength="255" formControlName="name" nbInput fullWidth shape="rectangle" placeholder="Digite o nome" type="text">
+          </div>
+
+          <div class="col-12 col-md-4 mt-3">
+            <label for="description" class="required-symbol">Pequena descrição</label>
+            <input id="description" autocomplete="off" maxlength="128" formControlName="description" nbInput fullWidth shape="rectangle" placeholder="Digite a descrição" type="text">
+          </div>
+
+          <div class="col-12 col-md-4 mt-3">
+            <label for="kcal" class="required-symbol">Calorias (100g) *</label>
+            <input id="kcal" autocomplete="off" maxlength="8" formControlName="kcal" nbInput fullWidth shape="rectangle" placeholder="Digite as calorias" type="number">
+          </div>
+
+          <div class="col-12 col-md-4 mt-3">
+            <label for="carb" class="required-symbol">Carboidratos (100g) *</label>
+            <input id="carb" autocomplete="off" maxlength="8" formControlName="carb" nbInput fullWidth shape="rectangle" placeholder="Digite os carboidratos" type="number">
+          </div>
+
+          <div class="col-12 col-md-4 mt-3">
+            <label for="protein" class="required-symbol">Proteínas (100g) *</label>
+            <input id="protein" autocomplete="off" maxlength="8" formControlName="protein" nbInput fullWidth shape="rectangle" placeholder="Digite as proteínas" type="number">
+          </div>
+
+          <div class="col-12 col-md-4 mt-3">
+            <label for="fat" class="required-symbol">Gorduras (100g) *</label>
+            <input id="fat" autocomplete="off" maxlength="8" formControlName="fat" nbInput fullWidth shape="rectangle" placeholder="Digite as gorduras" type="number">
+          </div>
+        </div>
+
+        <div class="col d-flex flex-column flex-sm-row flex-sm-grow-0 mt-5">
+          <button nbButton status="basic" outline routerLink="/pages/foods" type="button">
+            Voltar
+          </button>
+          <button *ngIf="!isUpdate" [disabled]="formGroup.status === 'INVALID'"
+                  nbButton
+                  status="success"
+                  outline
+                  class="mt-3 mt-md-0 ml-sm-auto">Criar
+          </button>
+          <button *ngIf="isUpdate" [disabled]="formGroup.status === 'INVALID'"
+                  nbButton
+                  status="warning"
+                  outline
+                  class="mt-3 mt-md-0 ml-sm-auto">Atualizar
+          </button>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>

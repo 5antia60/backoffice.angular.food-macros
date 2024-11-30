@@ -17,7 +17,6 @@ import {
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { ItemsService } from './services/items/items.service';
 
 @NgModule({
   declarations: [AppComponent],

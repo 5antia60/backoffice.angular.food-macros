@@ -4,18 +4,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { BaseItemComponent } from './base-item.component';
+import { BaseFoodComponent } from './base-food.component';
 import { getCrudErrors } from '../../../shared/functions';
-import { ItemsService } from '../../../services/items/items.service';
+import { FoodsService } from '../../../services/foods/foods.service';
 
 //#endregion
 
 @Component({
-  selector: 'ngx-update-items',
-  templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss'],
+  selector: 'ngx-update-food',
+  templateUrl: './food.component.html',
+  styleUrls: ['./food.component.scss'],
 })
-export class UpdateItemComponent extends BaseItemComponent implements OnInit {
+export class UpdateFoodComponent extends BaseFoodComponent implements OnInit {
 
   //#region Constructor
 
@@ -23,10 +23,10 @@ export class UpdateItemComponent extends BaseItemComponent implements OnInit {
     protected readonly router: Router,
     formBuilder: FormBuilder,
     route: ActivatedRoute,
-    itemsService: ItemsService,
+    foodsService: FoodsService,
     toast: NbToastrService,
   ) {
-    super(formBuilder, route, itemsService, toast);
+    super(formBuilder, route, foodsService, toast);
   }
 
   //#endregion
@@ -37,12 +37,14 @@ export class UpdateItemComponent extends BaseItemComponent implements OnInit {
     this.showLoading = true;
 
     const entityId = this.route.snapshot.paramMap.get('entityId');
-    const entity = await this.itemsService.getById(entityId);
+    const entity = await this.foodsService.getById(entityId);
 
     this.formGroup.controls.name.setValue(entity.name);
-    this.formGroup.controls.lastUpdate.setValue(entity.lastUpdate);
     this.formGroup.controls.description.setValue(entity.description);
-    this.formGroup.controls.weight.setValue(entity.weight);
+    this.formGroup.controls.carb.setValue(entity.carb);
+    this.formGroup.controls.fat.setValue(entity.fat);
+    this.formGroup.controls.protein.setValue(entity.protein);
+    this.formGroup.controls.kcal.setValue(entity.kcal);
 
     this.showLoading = false;
   }
@@ -57,9 +59,9 @@ export class UpdateItemComponent extends BaseItemComponent implements OnInit {
       const entityId = this.route.snapshot.paramMap.get('entityId');
       const payload = this.formGroup.getRawValue();
 
-      await this.itemsService.updateOne(entityId, payload);
+      await this.foodsService.updateOne(entityId, payload);
 
-      this.toast.success('Item atualizado com sucesso!', 'Sucesso');
+      this.toast.success('Alimento atualizado com sucesso!', 'Sucesso');
       await this.router.navigateByUrl(this.backUrl);
     } catch (error) {
       this.toast.danger(getCrudErrors(error)[0], 'Oops...');

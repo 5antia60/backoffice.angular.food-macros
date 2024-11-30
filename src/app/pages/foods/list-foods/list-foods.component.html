@@ -2,47 +2,47 @@
   <nb-card [nbSpinner]="isLoading">
     <nb-card-header class="d-flex flex-column flex-md-row">
       <div class="col-12 col-md-6 d-flex align-items-center px-0">
-        Abaixo, a lista de itens registrados
+        Abaixo, a lista de alimentos registrados
       </div>
 
       <div class="col-12 col-md-6 d-flex justify-content-end px-0">
-        <button nbButton status="success" outline class="w-100 w-md-auto mt-3 mt-md-0" routerLink="/pages/items/create">
-          Criar novo item
+        <button nbButton status="success" outline class="w-100 w-md-auto mt-3 mt-md-0" routerLink="/pages/foods/create">
+          Criar novo alimento
         </button>
       </div>
     </nb-card-header>
     <nb-card-body>
-      <table class="w-100" mat-table [dataSource]="listItems">
+      <table class="w-100" mat-table [dataSource]="listFoods">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Nome</th>
           <td mat-cell *matCellDef="let element">{{ element.name }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="lastUpdate">
-          <th mat-header-cell *matHeaderCellDef>Última Atualização</th>
-          <td mat-cell *matCellDef="let element">{{ element.lastUpdate | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Descrição</th>
+          <td mat-cell *matCellDef="let element">{{ element.description }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="weight">
-          <th mat-header-cell *matHeaderCellDef>Peso</th>
-          <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+        <ng-container matColumnDef="kcal">
+          <th mat-header-cell *matHeaderCellDef>Calorias (100g)</th>
+          <td mat-cell *matCellDef="let element">{{ element.kcal }}</td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Ações</th>
           <td mat-cell *matCellDef="let element">
-            <a nbButton nbTooltip="Editar item"
+            <a nbButton nbTooltip="Editar alimento"
                status="warning"
                outline
                class="mx-2"
-               [routerLink]="['/pages/items/', element.id]">
+               [routerLink]="['/pages/foods/', element.id]">
               <nb-icon icon="edit-outline"></nb-icon>
             </a>
-            <a nbButton nbTooltip="Excluir item"
+            <a nbButton nbTooltip="Excluir alimento"
                status="danger"
                outline
                class="mx-2"
-               (click)="deleteItem(element.id)">
+               (click)="deleteFood(element.id)">
               <nb-icon icon="trash-2-outline"></nb-icon>
             </a>
           </td>

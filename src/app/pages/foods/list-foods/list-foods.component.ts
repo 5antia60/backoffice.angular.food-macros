@@ -2,24 +2,24 @@
 
 import { Component, OnInit } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
-import { ItemProxy } from '../../../models/proxies/item.proxy';
+import { FoodProxy } from '../../../models/proxies/food.proxy';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { ItemsService } from '../../../services/items/items.service';
+import { FoodsService } from '../../../services/foods/foods.service';
 
 //#endregion
 
 @Component({
-  selector: 'ngx-list-items',
-  templateUrl: './list-items.component.html',
+  selector: 'ngx-list-foods',
+  templateUrl: './list-foods.component.html',
 })
-export class ListItemsComponent implements OnInit {
+export class ListFoodsComponent implements OnInit {
 
   //#region Constructor
 
   constructor(
     protected readonly toast: NbToastrService,
     protected readonly firestore: AngularFirestore,
-    protected readonly itemsService: ItemsService,
+    protected readonly foodsService: FoodsService,
   ) { }
 
   //#endregion
@@ -28,12 +28,12 @@ export class ListItemsComponent implements OnInit {
 
   public isLoading: boolean = false;
 
-  public listItems: ItemProxy[] = [];
+  public listFoods: FoodProxy[] = [];
 
   public displayedColumns: string[] = [
     'name',
-    'lastUpdate',
-    'weight',
+    'description',
+    'kcal',
     'actions',
   ];
 
@@ -42,19 +42,19 @@ export class ListItemsComponent implements OnInit {
   //#region Public Methods
 
   public async ngOnInit(): Promise<void> {
-    await this.loadItems();
+    await this.loadFoods();
   }
 
-  public async deleteItem(itemId: string): Promise<void> {
+  public async deleteFood(foodId: string): Promise<void> {
     this.isLoading = true;
 
     try {
-      await this.itemsService.deleteOne(itemId);
-      this.toast.success('O item foi excluido com sucesso.', 'Sucesso!');
+      await this.foodsService.deleteOne(foodId);
+      this.toast.success('O alimento foi excluido com sucesso.', 'Sucesso!');
 
-      await this.loadItems();
+      await this.loadFoods();
     } catch (error) {
-      this.toast.danger('Houve um erro ao excluir o item.', 'Oops...');
+      this.toast.danger('Houve um erro ao excluir o alimento.', 'Oops...');
     } finally {
       this.isLoading = false;
     }
@@ -64,11 +64,11 @@ export class ListItemsComponent implements OnInit {
 
   //#region Private Methods
 
-  private async loadItems(): Promise<void> {
+  private async loadFoods(): Promise<void> {
     this.isLoading = true;
 
     try {
-      this.listItems = await this.itemsService.getAll();
+      this.listFoods = await this.foodsService.getAll();
     } catch (error) {
       this.toast.danger('Houve um erro ao carregar informações.', 'Oops...');
     } finally {

@@ -1,12 +1,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyAhCRycufkoPhdwdTTBNHmZ-UXum0iTSyU',
-    authDomain: 'ngx-items.firebaseapp.com',
-    databaseURL: 'https://ngx-items-default-rtdb.firebaseio.com',
-    projectId: 'ngx-items',
-    storageBucket: 'ngx-items.appspot.com',
-    messagingSenderId: '1048812958194',
-    appId: '1:1048812958194:web:0cb0edc5b58b327207fb6b',
+    // databaseURL: 'https://ngx-items-default-rtdb.firebaseio.com',
+    apiKey: 'AIzaSyCfgE3lFGyTkenC_pp-q7867maRZUu0jHY',
+    authDomain: 'food-macros-9983e.firebaseapp.com',
+    projectId: 'food-macros-9983e',
+    storageBucket: 'food-macros-9983e.firebasestorage.app',
+    messagingSenderId: '94438550091',
+    appId: '1:94438550091:web:e23eb55011ecaebb49fbce',
   },
 };

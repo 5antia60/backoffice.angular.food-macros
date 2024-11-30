@@ -2,49 +2,51 @@
 
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Injectable } from '@angular/core';
-import { ItemProxy } from '../../models/proxies/item.proxy';
+import { FoodProxy } from '../../models/proxies/food.proxy';
 import { getCrudErrors } from '../../shared/functions';
-import { ItemPayload } from '../../models/payloads/item.payload';
+import { FoodPayload } from '../../models/payloads/food.payload';
 
 //#endregion
 
 @Injectable({
   providedIn: 'root',
 })
-export class ItemsService {
+export class FoodsService {
 
   //#region Constructor
 
   constructor(
     protected readonly firestore: AngularFirestore,
   ) {
-    this.form = this.firestore.collection('items');
+    this.form = this.firestore.collection('foods');
   }
 
   //#endregion
 
   //#region Private Properties
 
-  private form: AngularFirestoreCollection<ItemProxy | ItemPayload>;
+  private form: AngularFirestoreCollection<FoodProxy | FoodPayload>;
 
   //#endregion
 
   //#region Public Methods
 
-  public getAll(): Promise<ItemProxy[]> {
+  public getAll(): Promise<FoodProxy[]> {
     return new Promise(resolve => {
       try {
-        this.form.snapshotChanges().subscribe(items => {
-          const result: ItemProxy[] = items.map(item => {
-            const itemId = item.payload.doc.id;
-            const itemData = item.payload.doc.data();
+        this.form.snapshotChanges().subscribe(foods => {
+          const result: FoodProxy[] = foods.map(food => {
+            const foodId = food.payload.doc.id;
+            const foodData = food.payload.doc.data();
 
             return {
-              id: itemId,
-              name: itemData.name,
-              description: itemData.description,
-              lastUpdate: new Date(itemData.lastUpdate.seconds * 1000),
-              weight: itemData.weight,
+              id: foodId,
+              name: foodData.name,
+              description: foodData.description,
+              carb: foodData.carb,
+              fat: foodData.fat,
+              protein: foodData.protein,
+              kcal: foodData.kcal,
             };
           });
 
@@ -56,19 +58,19 @@ export class ItemsService {
     });
   }
 
-  public getById(itemId: string): Promise<ItemProxy> {
+  public getById(itemId: string): Promise<FoodProxy> {
     return new Promise(resolve => {
       try {
         this.form.doc(itemId)
           .valueChanges()
-          .subscribe((item: ItemProxy) => resolve(item));
+          .subscribe((item: FoodProxy) => resolve(item));
       } catch (error) {
         throw Error(getCrudErrors(error)[0]);
       }
     });
   }
 
-  public async createOne(payload: ItemPayload): Promise<void> {
+  public async createOne(payload: FoodPayload): Promise<void> {
     try {
       await this.form.add(payload);
     } catch (error) {
@@ -76,7 +78,7 @@ export class ItemsService {
     }
   }
 
-  public async updateOne(itemId: string, payload: ItemPayload): Promise<void> {
+  public async updateOne(itemId: string, payload: FoodPayload): Promise<void> {
     try {
       await this.form.doc(itemId).update(payload);
     } catch (error) {

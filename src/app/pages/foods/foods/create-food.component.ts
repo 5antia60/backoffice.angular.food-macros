@@ -4,17 +4,17 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { BaseItemComponent } from './base-item.component';
-import { ItemsService } from '../../../services/items/items.service';
+import { BaseFoodComponent } from './base-food.component';
+import { FoodsService } from '../../../services/foods/foods.service';
 
 //#endregion
 
 @Component({
-  selector: 'ngx-create-item',
-  templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss'],
+  selector: 'ngx-create-food',
+  templateUrl: './food.component.html',
+  styleUrls: ['./food.component.scss'],
 })
-export class CreateItemComponent extends BaseItemComponent {
+export class CreateFoodComponent extends BaseFoodComponent {
 
   //#region Constructor
 
@@ -22,10 +22,10 @@ export class CreateItemComponent extends BaseItemComponent {
     protected readonly router: Router,
     formBuilder: FormBuilder,
     route: ActivatedRoute,
-    itemsService: ItemsService,
+    foodsService: FoodsService,
     toast: NbToastrService,
   ) {
-    super(formBuilder, route, itemsService, toast);
+    super(formBuilder, route, foodsService, toast);
   }
 
   //#endregion
@@ -40,12 +40,12 @@ export class CreateItemComponent extends BaseItemComponent {
 
     try {
       const payload = this.formGroup.getRawValue();
-      await this.itemsService.createOne(payload);
+      await this.foodsService.createOne(payload);
 
-      this.toast.success('Item criado com sucesso!', 'Sucesso');
+      this.toast.success('Alimento criado com sucesso!', 'Sucesso');
       await this.router.navigateByUrl(this.backUrl);
     } catch (error) {
-      this.toast.danger('Houve um erro ao criar o item', 'Oops...');
+      this.toast.danger('Houve um erro ao criar o alimento', 'Oops...');
     } finally {
       this.showLoading = false;
     }

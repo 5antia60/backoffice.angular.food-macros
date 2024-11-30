@@ -8,16 +8,16 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      redirectTo: 'items',
+      redirectTo: 'foods',
       pathMatch: 'full',
     },
     {
-      path: 'items',
-      loadChildren: () => import('./items/items.module').then(m => m.ItemsModule),
+      path: 'foods',
+      loadChildren: () => import('./foods/foods.module').then(m => m.FoodsModule),
     },
     {
       path: '**',
-      redirectTo: 'items',
+      redirectTo: 'foods',
     },
   ],
 }];
