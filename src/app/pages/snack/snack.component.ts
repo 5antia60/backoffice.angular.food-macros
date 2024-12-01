@@ -57,6 +57,13 @@ export class SnackComponent implements OnInit {
 
   public filteredFoods$: Observable<FoodProxy[]>;
 
+  public report: { carb: string, protein: string, fat: string, kcal: string } = {
+    carb: '',
+    protein: '',
+    kcal: '',
+    fat: '',
+  };
+
   //endregion
 
   //#region Public Methods
@@ -113,7 +120,27 @@ export class SnackComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    console.log('onSubmit');
+    if (this.foodsList && this.foodsList.length > 0) {
+      this.report.carb = this.foodsList.reduce((acc, item) => {
+        const proportion = item.grams / 100; // Calcular a proporção de 100g
+        return acc + (item.food.carb * proportion);
+      }, 0).toFixed(1);
+
+      this.report.fat = this.foodsList.reduce((acc, item) => {
+        const proportion = item.grams / 100; // Calcular a proporção de 100g
+        return acc + (item.food.fat * proportion);
+      }, 0).toFixed(1);
+
+      this.report.protein = this.foodsList.reduce((acc, item) => {
+        const proportion = item.grams / 100; // Calcular a proporção de 100g
+        return acc + (item.food.protein * proportion);
+      }, 0).toFixed(1);
+
+      this.report.kcal = this.foodsList.reduce((acc, item) => {
+        const proportion = item.grams / 100; // Calcular a proporção de 100g
+        return acc + (item.food.kcal * proportion);
+      }, 0).toFixed(1);
+    }
   }
 
   //#endregion

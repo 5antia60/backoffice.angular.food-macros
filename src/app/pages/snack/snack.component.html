@@ -14,7 +14,7 @@
                  type="text"
                  (input)="onChange()"
                  placeholder="Pesquise pelo alimento"
-                 [nbAutocomplete]="auto" />
+                 [nbAutocomplete]="auto"/>
 
           <nb-autocomplete #auto (selectedChange)="onSelectionChange($event)">
             <nb-option *ngFor="let option of filteredFoods$ | async" [value]="option">
@@ -27,7 +27,7 @@
                [disabled]="!selectedFood"
                type="number"
                [(ngModel)]="selectedGrams"
-               placeholder="Quantidade (gramas)" />
+               placeholder="Quantidade (gramas)"/>
 
         <button [disabled]="!selectedGrams || !selectedFood"
                 nbButton
@@ -58,6 +58,32 @@
           </button>
         </nb-list-item>
       </nb-list>
+
+      <button class="mt-2" [disabled]="!foodsList.length" nbButton status="success" (click)="onSubmit()">Terminar
+        refeição
+      </button>
     </nb-card-body>
+  </nb-card>
+
+  <nb-card [nbSpinner]="false">
+    <nb-card-header>
+      Relatório da refeição
+    </nb-card-header>
+    <nb-card-body>
+      <ng-container *ngIf="report.kcal !== ''; else empty">
+        <strong>Você consumiu:</strong>
+        <nb-list>
+          <nb-list-item>{{ report.carb }}g de carboidratos</nb-list-item>
+          <nb-list-item>{{ report.protein }}g de proteínas</nb-list-item>
+          <nb-list-item>{{ report.fat }}g de gorduras</nb-list-item>
+          <nb-list-item>Total de {{ report.kcal }} calorias.</nb-list-item>
+        </nb-list>
+      </ng-container>
+
+      <ng-template #empty>
+        <strong>Você ainda não realizou o cálculo total da refeição</strong>
+      </ng-template>
+    </nb-card-body>
+
   </nb-card>
 </div>
